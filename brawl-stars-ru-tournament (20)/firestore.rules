@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Упрощенные правила: чтение всем, запись только админу по email
+    match /tournament/data {
+      allow read, write: if true;
+    }
+    
+    // Запрет всего остального
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
